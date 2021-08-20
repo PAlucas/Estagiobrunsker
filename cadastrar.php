@@ -30,26 +30,39 @@
 </head>
 <body>
     <?php
+      require("processa.php");
+      if(isset($_FILES['Img'])){
 
-      if(isset($_POST['acao'])){
-          $arquivo = $_FILES['Img'];
+        $arquivo = $_FILES['Img']['name'];
+        $extensao = strtolower(pathinfo($arquivo, PATHINFO_EXTENSION));
+        $novo_nome = md5(time()). ".". $extensao;
+        $diretorio = 'update/';
 
-          $arquivo = explode('.',$arquivo['name']);
+        move_uploaded_file($_FILES['Img']['tmp_name'], $diretorio.$novo_nome);
+        $cep = $_POST['Cep'];
+        $rua = $_POST['Rua'];
+        $bairro = $_POST['Bairro'];
+        $cidade = $_POST['Cidade'];
+        $estado = $_POST['Estado'];
+        $ibge = $_POST['Ibge'];
 
-          if(strtolower($arquivo[sizeof($arquivo)-1]) != 'jpg'){
-            die('Erro');
+        $sql_code = "INSERT INTO `imobiliaria`(`codigo`, `arquivo`, `data`, `cep`, `rua`, `bairro`, `cidade`, `estado`, `ibge`) 
+        VALUES ('','$novo_nome',NOW(),'$cep','$rua','$bairro','$cidade','$estado','$ibge')";
+
+        if(mysqli_query($connect, $sql_code)){
+            echo "cadastrado com sucesso";
           }else{
-              echo "continue";
-              move_uploaded_file($arquivo['tmp_name'], 'uploads/', $arquivo['name'] );
+            echo "não foi cadastrado";
           }
       }
+      
     ?>
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand mb-0 h1" href="index.php">Imobiliária</a>
         </div>
     </nav>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="cadastrar.php" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="Cep">Cep</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="Cep">
