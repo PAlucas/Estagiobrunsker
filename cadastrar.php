@@ -29,12 +29,27 @@
     </style>
 </head>
 <body>
+    <?php
+
+      if(isset($_POST['acao'])){
+          $arquivo = $_FILES['Img'];
+
+          $arquivo = explode('.',$arquivo['name']);
+
+          if(strtolower($arquivo[sizeof($arquivo)-1]) != 'jpg'){
+            die('Erro');
+          }else{
+              echo "continue";
+              move_uploaded_file($arquivo['tmp_name'], 'uploads/', $arquivo['name'] );
+          }
+      }
+    ?>
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand mb-0 h1" href="index.php">Imobiliária</a>
         </div>
     </nav>
-    <form>
+    <form action="" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="Cep">Cep</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="Cep">
@@ -59,7 +74,11 @@
             <label for="Ibge">Ibge</label>
             <input type="text" class="form-control" id="exampleFormControlTextarea1" name="Ibge">
         </div>
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
+        <div class="form-group mt-2">
+            <label for="Img">Foto da residência</label>
+            <input type="file" class="form-control-file" id="exampleFormControlFile1" name="Img">
+        </div>
+        <button type="submit" name="acao" class="btn btn-primary">Cadastrar</button>
     </form>
 </body>
 </html>
