@@ -11,6 +11,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
     <style>
+        div{
+            display: block;
+        }
       body {
         height: 100vh;
       }
@@ -20,17 +23,17 @@
         align-items:center;
         justify-content:space-around;
       }
-      #cards{
+      body #cards{
           display: flex;
       }
     </style>
 </head>
 <body>
 <?php
-    
+    $pesquisa = $_POST['busca'] ?? '';
     include "processa.php";
 
-    $sql = "SELECT * FROM `imobiliaria`";
+    $sql = "SELECT * FROM imobiliaria WHERE cidade LIKE '%$pesquisa'";
 
     $dados = mysqli_query($connect, $sql);
     $dado = mysqli_fetch_array($dados);
@@ -39,9 +42,14 @@
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand mb-0 h1" href="index.php">Imobiliária</a>
+    <form class="d-flex" action="imoveis.php" method="POST">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="busca" autofocus>
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
   </div>
+
 </nav>
-    <div id="cards form-group">
+    <div class="container-fluid" id="cards">
         <?php 
         echo"oi";
             //$dado = mysqli_fetch_array($dados);
