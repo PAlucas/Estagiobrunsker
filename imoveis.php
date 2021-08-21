@@ -26,28 +26,50 @@
     </style>
 </head>
 <body>
+<?php
+    
+    include "processa.php";
+
+    $sql = "SELECT * FROM `imobiliaria`";
+
+    $dados = mysqli_query($connect, $sql);
+    $dado = mysqli_fetch_array($dados);
+
+    ?>
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand mb-0 h1" href="index.php">Imobiliária</a>
   </div>
 </nav>
-    <div id="cards">
-        <div class="card m-5" style="width: 18rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card m-5" style="width: 18rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div> 
+    <div id="cards form-group">
+        <?php 
+        echo"oi";
+            //$dado = mysqli_fetch_array($dados);
+            while($linha = mysqli_fetch_array($dados)){
+                
+                $img = $linha['arquivo'];
+                $cep = $linha['cep'];
+                $rua = $linha['rua'];
+                $bairro = $linha['bairro'];
+                $cidade = $linha['cidade'];
+                $estado = $linha['estado'];
+                $ibge = $linha['ibge'];
+                $data = $linha['data'];
+                echo "        <div class='card m-5' style='width: 18rem;'>
+                                <img class='card-img-top' src='update/$img' alt='Card image cap'>
+                                <div class='card-body'>
+                                    <h5 class='card-title'>$rua</h5>
+                                    <p class='card-text'>$bairro</p>
+                                    <p class='card-text'>$cidade</p>
+                                    <p class='card-text'>$estado</p>
+                                    <p class='card-text'>$cep</p>
+                                    <p class='card-text'>$ibge</p>
+                                    <p class='card-text'>$data</p>
+                                </div>
+                               </div>
+            ";
+            }
+        ?>
     </div>
 </body>
 </html>

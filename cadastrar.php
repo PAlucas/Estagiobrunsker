@@ -35,7 +35,7 @@
 
         $arquivo = $_FILES['Img']['name'];
         $extensao = strtolower(pathinfo($arquivo, PATHINFO_EXTENSION));
-        $novo_nome = md5(time()). ".". $extensao;
+        $novo_nome = md5(time()).".".$extensao;
         $diretorio = 'update/';
 
         move_uploaded_file($_FILES['Img']['tmp_name'], $diretorio.$novo_nome);
@@ -62,7 +62,7 @@
             <a class="navbar-brand mb-0 h1" href="index.php">Imobiliária</a>
         </div>
     </nav>
-    <form action="cadastrar.php" method="POST" enctype="multipart/form-data">
+    <form action="cadastrar.php" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="Cep">Cep</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="Cep">
