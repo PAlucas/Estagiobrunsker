@@ -43,7 +43,7 @@
   <div class="container-fluid">
     <a class="navbar-brand mb-0 h1" href="index.php">Imobiliária</a>
     <form class="d-flex" action="imoveis.php" method="POST">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="busca" autofocus>
+          <input class="form-control me-2" type="search" placeholder="Cidade" aria-label="Search" name="busca" autofocus>
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
   </div>
